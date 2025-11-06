@@ -18,7 +18,7 @@ from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter
 folder_wids = '/home/woody/iwi5/iwi5333h/data'
 # img_base = '/home/WeiHongxi/WangHeng/project/dataset/Iam_database/words/'
 img_base = '/home/woody/iwi5/iwi5333h/data'
-folder_pre = '/home/woody/iwi5/iwi5333h/ganew'
+folder_pre = '/home/woody/iwi5/iwi5333h/vgg'
 # folder_pre = 'test_single_writer.4_scenarios_average/'
 #epoch = 5000
 epoch = 5000

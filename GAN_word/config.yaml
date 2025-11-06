@@ -1,0 +1,4 @@
+generator:
+  image_encoder: vgg   # choose vgg, dino, efficientnet, resnet, inception, stylecnn
+
+run_mode: teacher  # options: "default" or "teacher"

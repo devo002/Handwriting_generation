@@ -1,30 +1,45 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE.md)
-![Python 3.7](https://img.shields.io/badge/python-3.7-green.svg)
-# AFFGANwriting: A Handwriting Image Generation Method Based on Multi-feature Fusion
+![Python 3.10](https://img.shields.io/badge/python-3.10-green.svg)
+
+# Handwriting Generation: Improving AFFGANwriting by Exploring Deep Learning Models for Style Encoders and Image Generation of Sentence-Level Handwriting
+
+The goal of this project is to investigate whether recent backbone architectures — including ResNet-50, StyleCNN (a customized CNN), Inception-V3, EfficientNetv2-L, and DINOv2-L (a transformer-based model) — can offer performance advantages over the traditional VGG-19 network in capturing individual writing styles and generating more realistic handwriting images.
+
+![Architecture](comparemodels.png)
+
+
 ## Installation
+Create a conda environment using the requirements.txt and activate
 
 ```console
-conda create --name AFFGanWriting python=3.7
-conda activate AFFGanWriting
-conda install pytorch==1.4.0 torchvision==0.5.0 cudatoolkit=10.1 -c pytorch
-git clone https://github.com/wh807088026/AFFGanWriting.git && cd AFFGanWriting
+conda env create -n myenv python 3.10
+conda activate myenv
 pip install -r requirements.txt
+```
+
+
+Clone the repository and navigate to the directory
+```
+git clone https://github.com/devo002/Handwriting_generation.git
+cd GAN_word
 ```
 
 
 ## Dataset preparation
 
-The main experiments are run on [IAM](http://www.fki.inf.unibe.ch/databases/iam-handwriting-database) since it's a multi-writer dataset. Furthermore, when you have obtained a pretrained model on IAM, you could apply it on other datasets as evaluation, such as [GW](http://www.fki.inf.unibe.ch/databases/iam-historical-document-database/washington-database),  [RIMES](http://www.a2ialab.com/doku.php?id=rimes_database:start), [Esposalles](http://dag.cvc.uab.es/the-esposalles-database/) and
-[CVL](https://cvl.tuwien.ac.at/research/cvl-databases/an-off-line-database-for-writer-retrieval-writer-identification-and-word-spotting/). 
+The main experiments are run on [IAM](http://www.fki.inf.unibe.ch/databases/iam-handwriting-database) since it's a multi-writer dataset. Furthermore, when you have obtained a pretrained model on IAM, you could apply it on other datasets as evaluation, such as [GW](http://www.fki.inf.unibe.ch/databases/iam-historical-document-database/washington-database).
 
 ## How to train it?
 
 First download the IAM word level dataset, then execute `prepare_dataset.sh [folder of iamdb dataset]` to prepared the dataset for training.  
 Afterwards, refer your folder in `load_data.py` (search `img_base`). 
 
+Use the config file to specify the backbone model to use for the training as well as the training mode if default training or with the teacher student or knowledge distillation approach which we used to improve the models HTR. 
+
 Then run the training with:
 
-```bash
+```
+bash
 ./run_train_scratch.sh
 ```
 
@@ -33,7 +48,8 @@ Then run the training with:
 
 If you have already trained a model, you can use that model for further training by running:
 
-```bash
+```
+bash
 ./run_train_pretrain.sh [id]
 ```
 
@@ -42,20 +58,26 @@ In this case, `[id]` should be the id of the model in the `save_weights` directo
 
 ## How to test it?
 
-We provide two test scripts starting with `tt.`:
+We provide two test scripts:
 
-* `tt.test_single_writer.4_scenarios.py`: Please refer to Figure 4 of our paper to check the details. At the beginning of this code file, you need to open the comments in turns to run 4 scenarios experiments one by one.
-
-* `tt.word_ladder.py`: Please refer to Figure 7 of our paper to check the details. It's fun:-P
-
-
-## Citation
-
-If you use the code for your research, please cite our paper:
-
+Use the writertest.py to specify the epoch of the best model and the path to the model. You can test with other words.
 ```
-To be updated...
+python writertest.py -- epoch id -- writer id
 ```
 
-### Implementation details
-This work is partially based on the code released for [GANwriting](https://github.com/omni-us/research-GANwriting)
+* `tt.test_single_writer.4_scenarios.py`: At the beginning of this code file, you need to open the comments in turns to run 4 scenarios experiments one by one.
+
+
+## How to calculate the CER
+```
+python cer.py -- /path/to/testimages/
+```
+
+
+## Further Research 
+
+For additional details, you can refer to the GANwriting repository
+
+- [GANwriting](https://github.com/omni-us/research-GANwriting)
+
+

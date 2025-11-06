@@ -13,4 +13,4 @@ else
 fi
 
 export CUDA_VISIBLE_DEVICES=0
-python3 /home/woody/iwi5/iwi5333h/AFFGanWriting/GAN_word/main_runbad22.py $ID
+python3 /home/woody/iwi5/iwi5333h/AFFGanWriting/GAN_word/main_launcher.py --id "$ID"

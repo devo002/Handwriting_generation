@@ -12,6 +12,9 @@ import unicodedata, re
 os.environ["HUGGINGFACE_HUB_CACHE"] = "/home/woody/iwi5/iwi5333h/.cache/huggingface/hub"
 os.environ["HF_HUB_OFFLINE"] = "1"
 
+
+
+
 import numpy as np
 import torch
 import cv2

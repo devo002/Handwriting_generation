@@ -5,6 +5,8 @@ from modules_tro import GenModel_FC, DisModel, WriterClaModel, RecModel, write_i
 from loss_tro import recon_criterion, crit, log_softmax
 import numpy as np
 import torch.nn.functional as F
+import os
+import yaml
 
 
 w_dis = 1.
@@ -14,16 +16,43 @@ w_rec = 1.
 
 gpu = torch.device('cuda')
 
+def _load_cfg(path: str | None = None) -> dict:
+    """
+    Load config once:
+      - If CFG env var is set, use that path.
+      - Otherwise use config.yaml next to this file.
+    """
+    if path is None:
+        here = os.path.dirname(os.path.abspath(__file__))
+        path = os.environ.get("CFG", os.path.join(here, "config.yaml"))
+    with open(path, "r") as f:
+        return yaml.safe_load(f) or {}
+    
+    
 class ConTranModel(nn.Module):
-    def __init__(self, num_writers, show_iter_num, oov):
-        super(ConTranModel, self).__init__()
-        self.gen = GenModel_FC(OUTPUT_MAX_LEN).to(gpu)
+    def __init__(self, num_writers, show_iter_num, oov, encoder_name: str | None = None):
+        super().__init__()
+       
+        if encoder_name is None:
+            cfg = _load_cfg()
+            encoder_name = (cfg.get("generator", {}) or {}).get("image_encoder")
+            if not encoder_name:
+                raise ValueError("Missing generator.image_encoder in config.yaml (e.g., vgg, resnet, efficientnet, dino, inception, stylecnn)")
+
+        # Build submodules
+        self.gen = GenModel_FC(OUTPUT_MAX_LEN, encoder_name=encoder_name).to(gpu)
         self.cla = WriterClaModel(num_writers).to(gpu)
         self.dis = DisModel().to(gpu)
         self.rec = RecModel(pretrain=False).to(gpu)
+
+        # Bookkeeping
         self.iter_num = 0
         self.show_iter_num = show_iter_num
         self.oov = oov
+
+        # Loud confirmation (appears in your job logs)
+        print(f"[ConTranModel] encoder -> {self.gen.enc_image.__class__.__name__}", flush=True)    
+
 
     def forward(self, train_data_list, epoch, mode, cer_func=None):
         tr_domain, tr_wid, tr_idx, tr_img, tr_img_width, tr_label, img_xt, label_xt, label_xt_swap = train_data_list
