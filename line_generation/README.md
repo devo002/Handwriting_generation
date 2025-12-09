@@ -74,7 +74,7 @@ streamlit run app.py
 
 ## Further Research
 
-For additional details, you can refer to the following repositories:
+For additional details, you can refer to the following repositories below:
 
 - [Handwriting Line Generation (herobd)](https://github.com/herobd/handwriting_line_generation/tree/master)
 - [Emuru: Autoregressive Text-to-Image Generation (AIMAGELAB)](https://github.com/aimagelab/Emuru-autoregressive-text-img)
