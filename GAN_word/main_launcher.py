@@ -5,7 +5,7 @@ import argparse
 import subprocess
 import yaml
 
-def load_cfg(path="config.yaml"):
+def load_cfg(path="/home/woody/iwi5/iwi5333h/AFFGanWriting/GAN_word/config.yaml"):
     with open(path, "r") as f:
         return yaml.safe_load(f) or {}
 
@@ -13,7 +13,7 @@ def main():
     parser = argparse.ArgumentParser(description="Launch the correct main script based on config.run_mode")
     parser.add_argument("--id", type=int, default=None,
                         help="Epoch/ID to start from (e.g., 0 for scratch, 1200 to resume).")
-    parser.add_argument("--config", type=str, default="config.yaml")
+    parser.add_argument("--config", type=str, default="/home/woody/iwi5/iwi5333h/AFFGanWriting/GAN_word/config.yaml")
     args, passthrough = parser.parse_known_args()
 
     cfg = load_cfg(args.config)

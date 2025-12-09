@@ -18,10 +18,10 @@ from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter
 folder_wids = '/home/woody/iwi5/iwi5333h/data'
 # img_base = '/home/WeiHongxi/WangHeng/project/dataset/Iam_database/words/'
 img_base = '/home/woody/iwi5/iwi5333h/data'
-folder_pre = '/home/woody/iwi5/iwi5333h/vgg'
+folder_pre = '/home/woody/iwi5/iwi5333h/inception'
 # folder_pre = 'test_single_writer.4_scenarios_average/'
 #epoch = 5000
-epoch = 5000
+epoch = 3500
 
 parser = ArgumentParser(formatter_class=ArgumentDefaultsHelpFormatter)
 parser.add_argument('--epoch', default=epoch, type=int,
@@ -235,5 +235,5 @@ if __name__ == '__main__':
         # Iterate
         wids = tqdm(wids)
         for wid in wids:
-            model_path = f'/home/vault/iwi5/iwi5333h/bestmodel/contran-{model_epoch}.model'
+            model_path = f'/home/vault/iwi5/iwi5333h/save_weights4/contran-{model_epoch}.model'
             test_writer(wid, model_path, folder, text_corpus, data_dict)

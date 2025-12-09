@@ -58,7 +58,7 @@ In this case, `[id]` should be the id of the model in the `save_weights` directo
 
 ## How to test it?
 
-We provide two test scripts:
+I provided two test scripts:
 
 Use the writertest.py to specify the epoch of the best model and the path to the model. You can test with other words.
 ```
