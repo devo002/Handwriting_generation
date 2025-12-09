@@ -26,4 +26,4 @@ This work builds upon and extends ideas and code from the following repositories
 - [Handwriting_line_generation](https://github.com/herobd/handwriting_line_generation/) – provided the foundation for line-level handwriting generation, which we integrated into our web application.
 - [Emuru-autoregressive-text-img](https://github.com/aimagelab/Emuru-autoregressive-text-img) – offered an alternative approach to text-to-image generation.
 
-I thank the authors for making their code publicly available.
+I thank the authors for making their code publicly available to use.

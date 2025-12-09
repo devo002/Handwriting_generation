@@ -76,7 +76,7 @@ python cer.py -- /path/to/testimages/
 
 ## Further Research 
 
-For additional details, you can refer to the GANwriting repository
+For additional details, you can refer to the GANwriting repository available
 
 - [GANwriting](https://github.com/omni-us/research-GANwriting)
 
